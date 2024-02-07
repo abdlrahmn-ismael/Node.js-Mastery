@@ -1,20 +1,21 @@
-import express from "express"
+// src/index.js
+import express from "express";
+import connectDB from "./../config/db.js";
+import authRoutes from "../src/routes/authRoutes.js";
+
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-/*==============================================
-======= Routes
-==============================================*/
+// Connect to database
+connectDB();
 
+// Middleware
+app.use(express.json());
 
+// Routes
+app.use("/auth", authRoutes);
 
-
-
-
-
-/*==============================================
-======= Config
-==============================================*/
-const port = 3000;
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+// Start the server
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
